@@ -246,11 +246,14 @@ def to_sstp_nodes(rows):
                 cfg = ""
         if not _PROTO_TCP_RE.search(cfg):
             continue  # 无 TCP 入口 -> 不是 SSTP 可用节点, 丢弃
-        m = _REMOTE_RE.search(cfg)
+       m = _REMOTE_RE.search(cfg)
         if not m:
             continue
         port = int(m.group(1))
         if not (1 <= port <= 65535):
+            continue
+        # 仅保留 443 端口，因为 Cloudflare Worker 免费版限制连接非标准端口
+        if port != 443:
             continue
         host = r["host"]
         if not host.endswith(".opengw.net"):
