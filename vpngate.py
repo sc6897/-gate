@@ -252,9 +252,6 @@ def to_sstp_nodes(rows):
         port = int(m.group(1))
         if not (1 <= port <= 65535):
             continue
-        # 仅保留 443 端口，因为 Cloudflare Worker 免费版限制连接非标准端口
-        if port != 443:
-            continue
         host = r["host"]
         if not host.endswith(".opengw.net"):
             host = f"{host}.opengw.net"
