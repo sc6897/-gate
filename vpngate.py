@@ -246,7 +246,7 @@ def to_sstp_nodes(rows):
                 cfg = ""
         if not _PROTO_TCP_RE.search(cfg):
             continue  # 无 TCP 入口 -> 不是 SSTP 可用节点, 丢弃
-       m = _REMOTE_RE.search(cfg)
+        m = _REMOTE_RE.search(cfg)
         if not m:
             continue
         port = int(m.group(1))
